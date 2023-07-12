@@ -13,4 +13,5 @@ This is a simple to-do list app built with React Native.
 3. Run `npm start` to start the app
 
 ## Usage
-- Type in a new to-do item in the text input field and press the
+- Type in a new to-do item in the text input field and press the "ADD TODO" button to add it to the list.
+- Tap on an item in the list to mark it as done.
