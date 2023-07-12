@@ -16,7 +16,7 @@ import {
  * FlatList: testID="list" (list of todo)
  */
 
-//component
+//will be rendered inside the Input Text component
 const Item = ({ item, onPress, style }) => (
   <TouchableOpacity onPress={onPress}>
     <Text style={[styles.item, style]}>{item.title}</Text>
@@ -25,11 +25,15 @@ const Item = ({ item, onPress, style }) => (
 
 function App() {
   const [toDoList, handletoDoList] = useState([]); //todo State
-  const [toDoText, storeItem] = useState(null);
+  const [toDoText, storeItem] = useState(null);    //input state
   const [selectedId, setSelectedId] = useState(null);
   const [itemClicked, handleClicked] = useState(null);
 
   const renderItem = ({ item }) => {
+    /*
+    takes item as a parameter which is renderItem data prop and destruct it as 
+    {item} and gives to Item component
+    */
     console.log(toDoList + " // todolist item")
     console.log(toDoText + " // todo textboxtan gelen text")
     const backgroundColor = item.id === selectedId && itemClicked ? '#c6c6c6' : '#301b5e';
@@ -39,7 +43,7 @@ function App() {
         item={item}
         onPress={() => {
           setSelectedId(item.id)
-          isDone(item.id)
+          isDone(item.id, item.isDone)
         }}
         style={[
           styles.listItem,
@@ -50,7 +54,16 @@ function App() {
     );
   };
 
-  const isDone = (id) => itemClicked ? handleClicked(false) : handleClicked(true);
+  const isDone = (id, isDone) => {
+    if (itemClicked) {
+      handleClicked(false)
+      isDone=false
+     } 
+    else {
+      handleClicked(true)
+      isDone=true;
+    }
+  }
   const addToDoList = () => {
     if (!toDoText === "") {
       handletoDoList(toDoList => [...toDoList,
